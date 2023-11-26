@@ -2,27 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Http\Requests\CategoryRequest;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
-
-class CategoryController extends Controller
+class TodoController extends Controller
 {
     public function index()
     {
-        $categories= auth()->user()->categories()->get();
-        return view('category.categories-index')
-            ->with('categories', $categories);
+        $todos= auth()->user()->toDos()->get();
+        return view('todo.todo-index')
+            ->with('todos', $todos);
     }
 
     public function create()
     {
-        return view('category.categories-create');
+        return view('todo.todo-create');
     }
 
     public function add(CategoryRequest $request)
