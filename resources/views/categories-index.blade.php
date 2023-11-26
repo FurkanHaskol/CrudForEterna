@@ -4,7 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
     <div class="py-12">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -17,22 +17,37 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    @foreach($categories as $category)
-                        <div class="flex justify-between">
-                            <div>
-                                <a href="{{ route('categories.show', $category) }}">
-                                    {{ $category->name }}
-                                </a>
-                            </div>
-                            <div>
-                                <a href="{{ route('categories.edit', $category) }}">
-                                    Edit
-                                </a>
-                            </div>
-                        </div>
-                    @endforeach
+                <table class="table" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>First name</th>
+                                    <th>Last name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                          
+                                <tr>
+                                    <td>1241421</td>
+                                    <td>1241421</td>
+                                    <td>1241421</td>
+                                </tr>
+                          
+                            </tbody>
+                </table>
+                 
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+
+    <script>
+        $(document).ready( function () {
+            $('#datatable').DataTable();
+        });
+    </script>

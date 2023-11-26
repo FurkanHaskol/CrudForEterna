@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->foreignId('to_do_id')->nullable(false)->constrained();
-            $table->timestamp('remind_at')->nullable(false);
+            $table->timestamp('remind_at')->nullable(true);
             $table->string('message', 150)->nullable(true);
+            $table->timestamps();
         });
     }
 
