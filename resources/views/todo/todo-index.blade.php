@@ -10,7 +10,7 @@
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <button class="py-2 px-4 rounded">
-                <a href="{{ route('categories.create') }}">
+                <a href="{{ route('todo.create') }}">
                     Create Todo
                 </a>
             </button>
@@ -34,11 +34,21 @@
                                 <tr>                                  
                                     <td>{{$todo->title}}</td>
                                     <td>{{$todo->description}}</td>
-                                    <td>{{$todo->priority}}</td>
-                                    <td>{{$todo->due_at}}</td>
-                                    <td>{{$todo->completed_at}}</td>
-                                    <td><a href="{{ route('categories.edit', ['id' => $category->id]) }}">Edit</a>
-                                    <form action="{{ route('categories.delete', ['id' => $category->id]) }}" method="POST" style="display:inline;">
+                                    <td>{{ \Carbon\Carbon::parse($todo->due_at)->format('d-m-Y') }}</td>
+                                    <td>
+                                        @if($todo->priority == 1)
+                                            Low
+                                        @elseif($todo->priority == 2)
+                                            Medium
+                                        @elseif($todo->priority == 3)
+                                            High
+                                        @else
+                                             -
+                                        @endif
+                                </td>
+                                    <td>{{ $todo->completed_at ? \Carbon\Carbon::parse($todo->completed_at)->format('d-m-Y') : '-' }}</td>
+                                    <td><a href="{{ route('todo.edit', ['id' => $todo->id]) }}">Edit</a>
+                                    <form action="{{ route('todo.delete', ['id' => $todo->id]) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('post')
                 <button type="submit" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>

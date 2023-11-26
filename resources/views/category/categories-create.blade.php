@@ -16,7 +16,7 @@
 
         <div>
             <x-input-label for="category_name" :value="__('Category Name')" />
-            <x-text-input id="category_name" name="category_name" type="text" class="mt-1 block w-full"/>
+            <x-text-input required id="category_name" name="category_name" type="text" class="mt-1 block w-full"/>
             <x-input-error :messages="$errors->categoryName->get('category_name')" class="mt-2" />
             <span class="text-sm text-gray-600 dark:text-gray-400">max 250 char</span>
         </div>
