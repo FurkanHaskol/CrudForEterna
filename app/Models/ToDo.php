@@ -19,8 +19,8 @@ class ToDo extends Model
         return $this->hasMany(Reminder::class);
     }
 
-    public function categories()
+    public function category()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsTo(Category::class);
     }
 }

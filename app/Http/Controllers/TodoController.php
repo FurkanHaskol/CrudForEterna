@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Carbon\Carbon;
 
 class TodoController extends Controller
 {
@@ -35,6 +36,7 @@ class TodoController extends Controller
         $todo->priority = $request->priority;
         $todo->due_at = $request->due_date;
         $todo->user_id = auth()->id();
+        $todo->category_id = $request->category;
         $todo->save();
         
         return Redirect::route('todo.create')->with('status', 'todo-saved');
@@ -59,11 +61,22 @@ class TodoController extends Controller
 
     public function delete($id)
     {
-        $category = Category::find($id);
-        $category->delete();
+        $todo = ToDo::find($id);
+        $todo->delete();
         
-        $categories= auth()->user()->categories()->get();
-        return view('category.categories-index')
-            ->with('categories', $categories);
+        $todos= auth()->user()->toDos()->get();
+        return view('todo.todo-index')
+            ->with('todos', $todos);
+    }
+
+    public function done($id)
+    {
+        $todo = ToDo::find($id);
+        $todo->completed_at = Carbon::now();
+        $todo->update();
+
+        $todos= auth()->user()->toDos()->get();
+        return view('todo.todo-index')
+            ->with('todos', $todos);
     }
 }

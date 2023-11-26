@@ -23,9 +23,11 @@
                                 <tr>
                                     <th>Title</th>
                                     <th>Description</th>
+                                    <th>Category</th>
                                     <th>Due Date</th>
                                     <th>Priority</th>
                                     <th>Status</th>
+                                    <th>Complated Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -34,6 +36,7 @@
                                 <tr>                                  
                                     <td>{{$todo->title}}</td>
                                     <td>{{$todo->description}}</td>
+                                    <td>{{$todo->category->name}}</td>
                                     <td>{{ \Carbon\Carbon::parse($todo->due_at)->format('d-m-Y') }}</td>
                                     <td>
                                         @if($todo->priority == 1)
@@ -45,13 +48,19 @@
                                         @else
                                              -
                                         @endif
-                                </td>
+                                    </td>
+                                    <td>{{ $todo->completed_at ? 'Completed' : 'Not Finished' }}</td>
                                     <td>{{ $todo->completed_at ? \Carbon\Carbon::parse($todo->completed_at)->format('d-m-Y') : '-' }}</td>
                                     <td><a href="{{ route('todo.edit', ['id' => $todo->id]) }}">Edit</a>
+                                    <form action="{{ route('todo.done', ['id' => $todo->id]) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('post')
+                <button type="submit" onclick="return confirm('Are you sure you want to done this?')">Done</button>
+            </form>
                                     <form action="{{ route('todo.delete', ['id' => $todo->id]) }}" method="POST" style="display:inline;">
                 @csrf
                 @method('post')
-                <button type="submit" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
             </form></td>
                                 </tr>
                                 @endforeach

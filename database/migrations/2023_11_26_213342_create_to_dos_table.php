@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamp('due_at')->nullable(true);
             $table->integer('priority')->default(0);
             $table->foreignId('user_id')->nullable(false)->constrained();
+            $table->foreignId('category_id')->nullable(false)->constrained();
         });
     }
 
