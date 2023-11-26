@@ -1,10 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Category') }}
         </h2>
     </x-slot>
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <div class="py-12">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -20,17 +21,17 @@
                 <table class="table" id="datatable">
                             <thead>
                                 <tr>
-                                    <th>First name</th>
-                                    <th>Last name</th>
-                                    <th>Email</th>
+                                    <th>Category name</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                            @foreach($categories as $category)
+                                <tr>                                  
+                                    <td>{{$category->name}}</td>
+                                    <td><a href="{{ route('categories.edit', ['id' => $category->id]) }}">Edit</a></td>
                                 </tr>
+                                @endforeach
                             </tbody>
                 </table>
                  
@@ -40,9 +41,9 @@
     </div>
 </x-app-layout>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 
     <script>
         $(document).ready( function () {

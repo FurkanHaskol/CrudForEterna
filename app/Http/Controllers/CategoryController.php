@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -25,13 +25,28 @@ class CategoryController extends Controller
         return view('categories-create');
     }
 
-    public function add(Request $request)
+    public function add(CategoryRequest $request)
     {
-        $catergory = new Category();
-        $catergory->name = $request->category_name;
-        $catergory->user_id = auth()->id();
-        $catergory->save();
+        $category = new Category();
+        $category->name = $request->category_name;
+        $category->user_id = auth()->id();
+        $category->save();
         
         return Redirect::route('categories.create')->with('status', 'category-saved');
+    }
+
+    public function edit($id)
+    {
+        $category = Category::find($id);
+        return view('categories-edit', compact('category'));
+    }
+
+    public function update(CategoryRequest $request,$id)
+    {
+        $category = Category::find($id);
+        $category->name = $request->category_name;
+        $category->update();
+        
+        return Redirect::route('categories.edit', ['id' => $category->id])->with('status', 'category-updated');
     }
 }
