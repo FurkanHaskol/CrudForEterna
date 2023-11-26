@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/categories/add', [CategoryController::class, 'add'])->name('categories.add');
     Route::get('/categories/edit/{id}', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::post('/categories/delete/{id}', [CategoryController::class, 'delete'])->name('categories.delete');
 });
 
 require __DIR__.'/auth.php';

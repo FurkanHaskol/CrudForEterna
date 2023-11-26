@@ -9,7 +9,7 @@
     <div class="py-12">
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <button class="bg-gray-500 dark:hover:bg-white text-black font-bold py-2 px-4 rounded">
+            <button class="py-2 px-4 rounded">
                 <a href="{{ route('categories.create') }}">
                     Create Category
                 </a>
@@ -29,7 +29,12 @@
                             @foreach($categories as $category)
                                 <tr>                                  
                                     <td>{{$category->name}}</td>
-                                    <td><a href="{{ route('categories.edit', ['id' => $category->id]) }}">Edit</a></td>
+                                    <td><a href="{{ route('categories.edit', ['id' => $category->id]) }}">Edit</a>
+                                    <form action="{{ route('categories.delete', ['id' => $category->id]) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('post')
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this category?')">Delete</button>
+            </form></td>
                                 </tr>
                                 @endforeach
                             </tbody>

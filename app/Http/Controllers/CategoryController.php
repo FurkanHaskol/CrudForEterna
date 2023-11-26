@@ -46,7 +46,19 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category->name = $request->category_name;
         $category->update();
+
+        $categories= auth()->user()->categories()->get();
+        return view('categories-index')
+            ->with('categories', $categories);
+    }
+
+    public function delete($id)
+    {
+        $category = Category::find($id);
+        $category->delete();
         
-        return Redirect::route('categories.edit', ['id' => $category->id])->with('status', 'category-updated');
+        $categories= auth()->user()->categories()->get();
+        return view('categories-index')
+            ->with('categories', $categories);
     }
 }
