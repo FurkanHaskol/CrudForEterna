@@ -51,17 +51,27 @@
                                     </td>
                                     <td>{{ $todo->completed_at ? 'Completed' : 'Not Finished' }}</td>
                                     <td>{{ $todo->completed_at ? \Carbon\Carbon::parse($todo->completed_at)->format('d-m-Y') : '-' }}</td>
-                                    <td><a href="{{ route('todo.edit', ['id' => $todo->id]) }}">Edit</a>
-                                    <form action="{{ route('todo.done', ['id' => $todo->id]) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('post')
-                <button type="submit" onclick="return confirm('Are you sure you want to done this?')">Done</button>
-            </form>
-                                    <form action="{{ route('todo.delete', ['id' => $todo->id]) }}" method="POST" style="display:inline;">
-                @csrf
-                @method('post')
-                <button type="submit" onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
-            </form></td>
+                                    <td>
+    <div class="flex space-x-2">
+        <form action="{{ route('todo.edit', ['id' => $todo->id]) }}" method="GET" style="display:inline;">
+            @csrf
+            <button type="submit">Edit</button>
+        </form>
+
+        <form action="{{ route('todo.done', ['id' => $todo->id]) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('post')
+            <button type="submit" onclick="return confirm('Are you sure you want to done this?')">Done</button>
+        </form>
+
+        <form action="{{ route('todo.delete', ['id' => $todo->id]) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('post')
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
+        </form>
+    </div>
+</td>
+
                                 </tr>
                                 @endforeach
                             </tbody>

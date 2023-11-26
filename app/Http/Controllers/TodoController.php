@@ -44,13 +44,14 @@ class TodoController extends Controller
 
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('category.categories-edit', compact('category'));
+        $todo = ToDo::find($id);
+        $categories= auth()->user()->categories()->get();
+        return view('todo.todo-edit', compact('todo','categories'));
     }
 
     public function update(CategoryRequest $request,$id)
     {
-        $category = Category::find($id);
+        $todo = ToDo::find($id);
         $category->name = $request->category_name;
         $category->update();
 
