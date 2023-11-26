@@ -11,12 +11,33 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between">
-                        <form action="" method="POST">
+                    <form method="post" action="{{ route('categories.add') }}" class="mt-6 space-y-6">
+        @csrf
 
-                        </form>
+        <div>
+            <x-input-label for="category_name" :value="__('Category Name')" />
+            <x-text-input id="category_name" name="category_name" type="text" class="mt-1 block w-full"/>
+            <x-input-error :messages="$errors->categoryName->get('category_name')" class="mt-2" />
+        </div>
+
+        <div class="flex items-center gap-4">
+            <x-primary-button>{{ __('Save') }}</x-primary-button>
+
+            @if (session('status') === 'category-saved')
+                <p
+                    x-data="{ show: true }"
+                    x-show="show"
+                    x-transition
+                    x-init="setTimeout(() => show = false, 2000)"
+                    class="text-sm text-gray-600 dark:text-gray-400"
+                >{{ __('Saved.') }}</p>
+            @endif
+        </div>
+    </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
+

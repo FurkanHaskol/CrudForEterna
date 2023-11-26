@@ -26,13 +26,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                          
                                 <tr>
-                                    <td>1241421</td>
-                                    <td>1241421</td>
-                                    <td>1241421</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
-                          
                             </tbody>
                 </table>
                  
