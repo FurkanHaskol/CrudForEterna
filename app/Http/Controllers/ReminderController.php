@@ -8,22 +8,22 @@ use App\Models\Reminder;
 
 class ReminderController extends Controller
 {
-    public function edit($id)
+    public function create($id)
     {
-        $reminder = Reminder::where('to_do_id',$id)->first();
-        
-        return view('todo.reminder-create', compact('reminder'));
+        return view('todo.reminder-create')->with('id',$id);
     }
 
-    public function update(Request $request,$id)
-    {
-        $reminder = Reminder::where('to_do_id',$id)->first();
-        $reminder->remind_at = $request->reminder_at;
-        $category->update();
+    public function add(Request $request,$id)
+    { 
+        $reminder = Reminder::firstOrNew(['to_do_id' => $id]);
+        $reminder->remind_at = $request->reminder_date;
+        $reminder->to_do_id = $id;
+        $reminder->message = $request->reminder_message;
+        $reminder->save();
 
-        $categories= auth()->user()->categories()->get();
-        return view('category.categories-index')
-            ->with('categories', $categories);
+        $todos= auth()->user()->toDos()->get();
+        return view('todo.todo-index')
+            ->with('todos', $todos);
     }
 
 }

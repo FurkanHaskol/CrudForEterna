@@ -25,6 +25,7 @@
                                     <th>Description</th>
                                     <th>Category</th>
                                     <th>Due Date</th>
+                                    <th>Reminder</th>
                                     <th>Priority</th>
                                     <th>Status</th>
                                     <th>Complated Date</th>
@@ -38,6 +39,7 @@
                                     <td>{{$todo->description}}</td>
                                     <td>{{$todo->category->name}}</td>
                                     <td>{{ \Carbon\Carbon::parse($todo->due_at)->format('d-m-Y') }}</td>
+                                    <td>{{ $todo->reminder ? \Carbon\Carbon::parse($todo->reminder->remind_at)->format('d-m-Y H:i') : '-' }}</td>
                                     <td>
                                         @if($todo->priority == 1)
                                             Low
@@ -53,7 +55,13 @@
                                     <td>{{ $todo->completed_at ? \Carbon\Carbon::parse($todo->completed_at)->format('d-m-Y') : '-' }}</td>
                                     <td>
     <div class="flex space-x-2">
-        <form action="{{ route('todo.edit', ['id' => $todo->id]) }}" method="GET" style="display:inline;">
+        
+         <form action="{{ route('reminder.create', ['id' => $todo->id]) }}" method="GET" style="display:inline;">
+                 @csrf
+                 <button type="submit">Add Reminder</button>
+             </form>
+             
+         <form action="{{ route('todo.edit', ['id' => $todo->id]) }}" method="GET" style="display:inline;">
             @csrf
             <button type="submit">Edit</button>
         </form>

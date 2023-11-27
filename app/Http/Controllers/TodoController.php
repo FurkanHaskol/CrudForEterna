@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\TodoRequest;
 use App\Models\Todo;
+use App\Models\Reminder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -71,6 +72,8 @@ class TodoController extends Controller
     public function delete($id)
     {
         $todo = ToDo::find($id);
+        $reminder = Reminder::where('to_do_id',$id)->first();
+        $reminder->delete();
         $todo->delete();
         
         $todos= auth()->user()->toDos()->get();

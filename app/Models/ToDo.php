@@ -14,9 +14,9 @@ class ToDo extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function reminders()
+    public function reminder()
     {
-        return $this->hasMany(Reminder::class);
+        return $this->hasOne(Reminder::class, 'to_do_id');
     }
 
     public function category()

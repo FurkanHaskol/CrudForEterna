@@ -11,14 +11,22 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between">
-                    <form method="post" action="{{ route('reminder.add', ['id' => $reminder->to_do_id]) ) }}" class="mt-6 space-y-6">
+                    <form method="post" action="{{ route('reminder.add', ['id' => $id] ) }}" class="mt-6 space-y-6">
         @csrf    
 
         <div>
-            <x-input-label for="reminder_date" :value="__('Reminder Date')" />
-            <input required id="reminder_date" name="reminder_date" type="date" class="mt-1 block w-full"
-                   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
-            <x-input-error :messages="$errors->dueDate->get('reminder_date')" class="mt-2" />
+          <x-input-label for="reminder_date" :value="__('Reminder Date')" />
+          <input required id="reminder_date" name="reminder_date" type="datetime-local" class="mt-1 block w-full"
+           min="{{ \Carbon\Carbon::now()->format('Y-m-d\TH:i') }}" />
+          <x-input-error :messages="$errors->dueDate->get('reminder_date')" class="mt-2" />
+        </div>
+
+
+        <div>
+            <x-input-label for="reminder_message" :value="__('Reminder Message')" />
+            <x-text-input required id="reminder_message" name="reminder_message" type="text" class="mt-1 block w-full"/>
+            <x-input-error :messages="$errors->todoTitle->get('reminder_message')" class="mt-2" />
+            <span class="text-sm text-gray-600 dark:text-gray-400">max 150 char</span>
         </div>
 
         <div class="flex items-center gap-4">

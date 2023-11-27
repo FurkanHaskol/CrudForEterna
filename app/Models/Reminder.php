@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reminder extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'remind_at',
+        'to_do_id',
+        'message',
+    ];
 }

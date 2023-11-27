@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TodoController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReminderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,8 +48,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/todo/done/{id}', [TodoController::class, 'done'])->name('todo.done');
 
     //Reminder
-    Route::get('/reminder/create/{id}', [ReminderController::class, 'edit'])->name('reminder.create');
-    Route::post('/reminder/add/{id}', [ReminderController::class, 'update'])->name('reminder.add');
+    Route::get('/reminder/create/{id}', [ReminderController::class, 'create'])->name('reminder.create');
+    Route::post('/reminder/add/{id}', [ReminderController::class, 'add'])->name('reminder.add');
 });
 
 require __DIR__.'/auth.php';
