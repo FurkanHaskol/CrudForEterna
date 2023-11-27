@@ -32,7 +32,9 @@ class CategoryController extends Controller
         $category->user_id = auth()->id();
         $category->save();
         
-        return Redirect::route('categories.create')->with('status', 'category-saved');
+        $categories= auth()->user()->categories()->get();
+        return view('category.categories-index')
+            ->with('categories', $categories);
     }
 
     public function edit($id)

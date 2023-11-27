@@ -47,8 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/todo/done/{id}', [TodoController::class, 'done'])->name('todo.done');
 
     //Reminder
-    Route::get('/reminder/edit/{id}', [ReminderController::class, 'edit'])->name('reminder.edit');
-    Route::post('/reminder/update/{id}', [ReminderController::class, 'update'])->name('reminder.update');
+    Route::get('/reminder/create/{id}', [ReminderController::class, 'edit'])->name('reminder.create');
+    Route::post('/reminder/add/{id}', [ReminderController::class, 'update'])->name('reminder.add');
 });
 
 require __DIR__.'/auth.php';

@@ -39,7 +39,9 @@ class TodoController extends Controller
         $todo->category_id = $request->category;
         $todo->save();
         
-        return Redirect::route('todo.create')->with('status', 'todo-saved');
+        $todos= auth()->user()->toDos()->get();
+        return view('todo.todo-index')
+            ->with('todos', $todos);
     }
 
     public function edit($id)
@@ -49,15 +51,21 @@ class TodoController extends Controller
         return view('todo.todo-edit', compact('todo','categories'));
     }
 
-    public function update(CategoryRequest $request,$id)
+    public function update(Request $request,$id)
     {
         $todo = ToDo::find($id);
-        $category->name = $request->category_name;
-        $category->update();
 
-        $categories= auth()->user()->categories()->get();
-        return view('category.categories-index')
-            ->with('categories', $categories);
+        $todo->title = $request->todo_title;
+        $todo->description = $request->todo_description;
+        $todo->priority = $request->priority;
+        $todo->due_at = $request->due_date;
+        $todo->user_id = auth()->id();
+        $todo->category_id = $request->category;
+        $todo->update();
+
+        $todos= auth()->user()->toDos()->get();
+        return view('todo.todo-index')
+            ->with('todos', $todos);
     }
 
     public function delete($id)
