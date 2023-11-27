@@ -55,10 +55,9 @@ class User extends Authenticatable
 
     public function activeReminders()
     {
-        $reminders = \App\Models\Reminder::where('remind_at', '<=', now())
-        ->whereHas('toDo', function ($query) {
-            $query->where('user_id', '=', auth()->user()->id);
-        })
-        ->get();
+        $user = auth()->user();
+        $todo = $user->toDos()->get()->pluck('id')->toArray();
+        $reminders = Reminder::whereIn('to_do_id', $todo)->get();
+        return $reminders;
     }
 }

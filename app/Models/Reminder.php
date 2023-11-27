@@ -15,7 +15,7 @@ class Reminder extends Model
 
     public function toDo()
     {
-        return $this->hasOne(Reminder::class, 'to_do_id');
+        return $this->belongsto(Reminder::class, 'to_do_id');
     }
 
 }

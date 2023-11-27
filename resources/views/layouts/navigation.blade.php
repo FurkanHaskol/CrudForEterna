@@ -19,9 +19,14 @@
                         {{ __('Categories') }}
                     </x-nav-link>
                     <x-nav-link :href="route('todo.index')" :active="request()->routeIs('todos')">
-                        {{ __('ToDo') }}
+                        {{ __('ToDo') }} 
+                        @if(auth()->user()->activeReminders()->count() > 0)
+    <div class="text-red-500">
+        - Reminder: You have {{ auth()->user()->activeReminders()->count() }} reminder(s)!
+    </div>
+@endif
                     </x-nav-link>
-                    {{auth()->user()->activeReminders}}
+                    
                 </div>
             </div>
 
