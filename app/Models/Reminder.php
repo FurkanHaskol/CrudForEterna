@@ -12,4 +12,10 @@ class Reminder extends Model
         'to_do_id',
         'message',
     ];
+
+    public function toDo()
+    {
+        return $this->hasOne(Reminder::class, 'to_do_id');
+    }
+
 }

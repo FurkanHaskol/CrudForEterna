@@ -21,6 +21,7 @@
                     <x-nav-link :href="route('todo.index')" :active="request()->routeIs('todos')">
                         {{ __('ToDo') }}
                     </x-nav-link>
+                    {{auth()->user()->activeReminders}}
                 </div>
             </div>
 
